@@ -4,7 +4,6 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "test": "node test",
     "build": "mvn clean package && rm -rf war-template && cp -r target/warify-1 war-template",
     "release": "npm run build && np"
   },
