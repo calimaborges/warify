@@ -5,7 +5,8 @@
   "license": "MIT",
   "scripts": {
     "build": "mvn clean package && rm -rf war-template && cp -r target/warify-1 war-template",
-    "release": "npm run build && np --no-publish && npm publish"
+    "prerelease": "npm run build",
+    "release": "np"
   },
   "dependencies": {
     "archiver": "^2.0.0",
