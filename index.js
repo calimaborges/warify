@@ -11,20 +11,12 @@ const generateWar = (modulePath, inputPath, outputPath, callback) => {
   const workdir = fs.mkdtempSync(path.join(os.tmpdir(), "warify"));
   const warTemplateFolderName = "war-template";
   const warTemplateFolderPath = path.join(modulePath, warTemplateFolderName);
-  const staticFolderName = "static";
-  const staticFolderPath = path.join(workdir, staticFolderName);
 
   // Copy war template to temporary folder
   fs.copySync(warTemplateFolderPath, workdir);
 
-  // Copy content from user to static folder in warTemplate
-  fs.copySync(inputPath, staticFolderPath);
-
-  // Move index.html to main folder on war
-  fs.moveSync(
-    path.join(staticFolderPath, "index.html"),
-    path.join(workdir, "index.html")
-  );
+  // Copy content from user to war template folder
+  fs.copySync(inputPath, workdir);
 
   const files = fs.readdirSync(workdir);
   const output = fs.createWriteStream(outputPath);

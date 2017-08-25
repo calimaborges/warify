@@ -28,7 +28,7 @@ public class SinglePageApplicationFilter implements Filter {
     }
 
     private boolean isAllowed(HttpServletRequest req) {
-        List<String> allowed = Collections.singletonList("/static");
+        List<String> allowed = Collections.singletonList("/index.html");
         for (String path : allowed) {
             if (req.getServletPath().startsWith(path)) {
                 return true;
