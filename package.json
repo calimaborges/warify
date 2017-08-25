@@ -1,5 +1,5 @@
 {
-  "name": "@rogue-zero/warify",
+  "name": "warify",
   "version": "0.1.2",
   "main": "index.js",
   "license": "MIT",
