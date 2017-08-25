@@ -7,9 +7,9 @@
     "test": "node test",
     "build": "mvn clean package && rm -rf war-template && cp -r target/warify-1 war-template"
   },
-  "bin": "./index.js",
   "dependencies": {
     "archiver": "^2.0.0",
-    "fs-extra": "^4.0.1"
+    "fs-extra": "^4.0.1",
+    "get-installed-path": "^3.0.1"
   }
 }

@@ -3,12 +3,13 @@ const fs = require("fs-extra");
 const path = require("path");
 const os = require("os");
 const archiver = require("archiver");
+const getInstalledPath = require("get-installed-path");
 
-module.exports = (inputPath, outputPath, callback) => {
+const generateWar = (modulePath, inputPath, outputPath, callback) => {
   // copy war-template
   const workdir = fs.mkdtempSync(path.join(os.tmpdir(), "warify"));
   const warTemplateFolderName = "war-template";
-  const warTemplateFolderPath = path.join(__dirname, warTemplateFolderName);
+  const warTemplateFolderPath = path.join(modulePath, warTemplateFolderName);
   const staticFolderName = "static";
   const staticFolderPath = path.join(workdir, staticFolderName);
 
@@ -24,16 +25,24 @@ module.exports = (inputPath, outputPath, callback) => {
     path.join(workdir, "index.html")
   );
 
-  const files = fs.readdirSync(inputPath);
+  const files = fs.readdirSync(workdir);
   const output = fs.createWriteStream(outputPath);
   output.on("close", () => {
     callback(archive.pointer());
   });
 
   const archive = archiver("zip", { zlib: { level: 9 } });
-  archive.directory(inputPath, false);
+  archive.directory(workdir, false);
 
   archive.pipe(output);
 
   archive.finalize();
+};
+
+module.exports = (inputPath, outputPath, callback) => {
+  getInstalledPath("warify", {
+    paths: process.mainModule.paths
+  }).then(modulePath =>
+    generateWar(modulePath, inputPath, outputPath, callback)
+  );
 };
