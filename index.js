@@ -4,6 +4,7 @@ const path = require("path");
 const os = require("os");
 const archiver = require("archiver");
 const getInstalledPath = require("get-installed-path");
+const packageJson = require("./package.json");
 
 const generateWar = (modulePath, inputPath, outputPath, callback) => {
   // copy war-template
@@ -40,7 +41,7 @@ const generateWar = (modulePath, inputPath, outputPath, callback) => {
 };
 
 module.exports = (inputPath, outputPath, callback) => {
-  getInstalledPath("warify", {
+  getInstalledPath(packageJson.name, {
     paths: process.mainModule.paths
   }).then(modulePath =>
     generateWar(modulePath, inputPath, outputPath, callback)
