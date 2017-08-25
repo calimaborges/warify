@@ -2,8 +2,7 @@ import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.Collections;
-import java.util.List;
+import java.net.MalformedURLException;
 
 public class SinglePageApplicationFilter implements Filter {
 
@@ -28,12 +27,10 @@ public class SinglePageApplicationFilter implements Filter {
     }
 
     private boolean isAllowed(HttpServletRequest req) {
-        List<String> allowed = Collections.singletonList("/index.html");
-        for (String path : allowed) {
-            if (req.getServletPath().startsWith(path)) {
-                return true;
-            }
-        }
+      try {
+        return req.getServletContext().getResource(req.getServletPath()) != null;
+      } catch (MalformedURLException e) {
         return false;
+      }
     }
 }
