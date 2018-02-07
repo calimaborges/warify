@@ -4,7 +4,6 @@ Create war for single page applications for Java EE 6 compliant servers.
 
 ## Installation
 
-
 ### yarn
 
 ```
@@ -23,8 +22,8 @@ npm install warify --save-dev
 
 ```javascript
 const warify = require("warify");
-warify(inputPath, outputPath, (size) => {
-    const warPath = path;
+warify(inputPath, outputPath, size => {
+  const warPath = path;
 });
 // example: const warPath = warify("./", "./my-war.war, (size) => {
 //    console.log(size + " bytes file");
@@ -45,13 +44,13 @@ warify <inputPath> <generated-war-name>
 ### Requirements
 
 * Node.js
-* Java
-* Maven
+* Docker
 
 ### Build
 
-```
+```bash
 yarn
-yarn build
-```
+yarn dockerbuild
 
+yarn build # to use maven instead of docker
+```

@@ -1,11 +1,14 @@
 {
-  "name": "@rogue-zero/warify",
-  "version": "0.1.13",
+  "name": "warify",
+  "version": "0.1.14",
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "build": "mvn clean package && rm -rf war-template && cp -r target/warify-1 war-template",
-    "prerelease": "npm run build",
+    "dockerbuild":
+      "docker run -it --rm --name warify -v \"$PWD\":/usr/src/warify -w /usr/src/warify maven:3.2-jdk-7 mvn clean package && rm -rf war-template && cp -r target/warify-1 war-template",
+    "build":
+      "mvn clean package && rm -rf war-template && cp -r target/warify-1 war-template",
+    "prerelease": "nyr dockerbuild",
     "release": "np"
   },
   "dependencies": {
@@ -14,6 +17,7 @@
     "get-installed-path": "^3.0.1"
   },
   "devDependencies": {
-    "np": "^2.16.0"
+    "np": "^2.16.0",
+    "nyr": "^1.1.0"
   }
 }
