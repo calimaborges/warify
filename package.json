@@ -1,13 +1,13 @@
 {
   "name": "warify",
-  "version": "0.1.18",
+  "version": "1.0.0",
   "main": "index.js",
   "license": "MIT",
   "scripts": {
     "dockerbuild": "docker run -it --rm --name warify -v \"$PWD\":/usr/src/warify -w /usr/src/warify maven:3.2-jdk-7 mvn clean package && rm -rf war-template && cp -r target/warify-1 war-template",
     "build": "mvn clean package && rm -rf war-template && cp -r target/warify-1 war-template",
     "prerelease": "nyr dockerbuild",
-    "release": "yarn version && yarn publish && git push --follow-tags"
+    "release": "yarn publish && git push --follow-tags"
   },
   "dependencies": {
     "archiver": "^2.0.0",
